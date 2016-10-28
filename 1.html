@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>练习</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        ol,ul{
+            list-style: none;/*height=30px*/
+        }
+        #container{
+            width: 400px;
+            height:300px;
+            margin: 100px auto;
+        }
+        #tab li{
+            background: #808080;
+            width:120px;
+            height:30px;
+            float: left;
+            margin-right: 5px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #tab .selected{
+            background: #000;
+            color: #fff;
+        }
+        #tab{
+            overflow: hidden;
+        }
+        #content{
+            background: #999999;
+            width:400px;
+            height:270px;
+            border-top: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="selected">html</li>
+        <li>css</li>
+        <li>js</li>
+    </ul>
+    <div id="content">1111</div>
+</div>
+<script>
+    var data = ["1111","2222","3333"];
+    var oTab = document.getElementById("tab");
+    var aLi = oTab.getElementsByTagName("li");
+    var oContent = document.getElementById("content");
+    for(var i = 0;i<aLi.length;i++){
+        aLi[i].index = i;
+        aLi[i].onclick = function(){
+            for(var i = 0;i<aLi.length;i++){
+                aLi[i].className = "";//让aLi中的每一个元素的className为空；
+            }
+            this.className = "selected";
+            oContent.innerHTML = data[this.index];
+        }
+    }
+</script>
+</body>
+</html>
