@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ol,ul{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        #container{
+            width: 680px;
+            height:344px;
+            margin:50px auto;
+            position: relative;
+    }
+        #tab{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        #tab li{
+            background: #000;
+            color: #fff;
+            width:30px;
+            height:30px;
+            float:left;
+            margin-right: 5px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #arrow{
+
+            position: absolute;
+            left:10px;
+            bottom: 10px;
+        }
+        #arrow span{
+            width:30px;
+            height:30px;
+            float: left;
+            margin-right: 5px;
+            background: #000;
+            color: #fff;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        #content .seleted{
+            display: block;
+        }
+        #tab li.seleted{
+            background: #f00;
+        }
+        #content img{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="seleted">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="content">
+    <img class="seleted" src="1.jpg"/>
+        <img src="2.jpg"/>
+        <img src="3.jpg"/>
+        <img src="4.jpg"/>
+    </div>
+    <div id="arrow">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+</div>
+<script>
+    var oContainer = document.getElementById("container");
+    var aLi = oContainer.getElementsByTagName("li");
+    var aImg = oContainer.getElementsByTagName("img");
+    var oNext = document.getElementById("next");
+    var oPrev = document.getElementById("prev");
+    var iNow = 0;//记录当前显示的索引
+    /*var iPrev = 4;*/
+    var timer;
+    for(var i = 0;i<aLi.length;i++){
+        aLi[i].index = i;
+        aLi[i].onmouseover = function(){
+            changImg(this.index);
+            iNow = this.index;
+        };
+    }
+        function changImg(index){
+            for (var i = 0;i<aLi.length;i++){
+                aLi[i].className = "";
+                aImg[i].className = "";
+            }
+            aLi[index].className = "seleted";
+            aImg[index].className = "seleted";
+        };
+       oNext.onclick = function(){
+           iNow++;
+           iNow = iNow%aLi.length;
+           changImg(iNow);
+       };
+        oPrev.onclick = function(){
+            if(iNow !==0){
+                iNow--;
+            }
+            else{
+                iNow =aLi.length-1;
+            }
+            changImg(iNow);
+    };
+       timer = setInterval(function(){
+            oNext.onclick();
+        },1500);//每隔1.5秒触发
+    oContainer.onmouseover = function(){
+        clearInterval(timer);
+    };
+    oContainer.onmouseout = function(){
+        timer = setInterval(function(){
+            oNext.onclick();
+        },1500);
+    };
+</script>
+</body>
+</html>

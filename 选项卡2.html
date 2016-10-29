@@ -4,26 +4,32 @@
     <meta charset="UTF-8">
     <title>选项卡</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
+        * {
+            margin: 0;
+            padding: 0;
         }
-        ol,ul{
+
+        ol, ul {
             list-style: none;
         }
-        a{
+
+        a {
             text-decoration: none;
         }
-        #container{
+
+        #container {
             width: 400px;
-            height:300px;
-            margin:100px auto;
+            height: 300px;
+            margin: 100px auto;
         }
-        #tab{
-        //height:30px;
-            overflow: hidden;//解决塌陷问题
+
+        #tab {
+        / / height : 30 px;
+            overflow: hidden;
+        / / 解决塌陷问题
         }
-        #tab li{
+
+        #tab li {
             width: 120px;
             height: 30px;
             float: left;
@@ -31,13 +37,16 @@
             background: #ccc;
             text-align: center;
             line-height: 30px;
-            cursor: pointer;//鼠标变手状
+            cursor: pointer;
+        / / 鼠标变手状
         }
-        #tab .selected{
+
+        #tab .selected {
             background: #000;
             color: #fff;
         }
-        #content{
+
+        #content {
             border-top: 1px solid;
             width: 400px;
             height: 270px;
@@ -64,7 +73,7 @@
     var aLi = oTab.getElementsByTagName('li');//oTab.children;
     var oContent = document.getElementById('content');
     var aDiv = oContent.getElementsByTagName("div");
-    for(var i=0; i<aLi.length; i++) {
+    for (var i = 0; i < aLi.length; i++) {
         aLi[i].index = i;
         aLi[i].onclick = function () {
             for (var i = 0; i < aLi.length; i++) {
