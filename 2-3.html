@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>2-2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ol, ul {
+            list-style: none;
+        }
+
+        #container {
+            width: 680px;
+            height: 344px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #tab {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            z-index: 1;
+        }
+
+        #tab li {
+            background: #000;
+            color: #fff;
+            width: 30px;
+            height: 30px;
+            float: left;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        #tab .seleted {
+            background: #ff0000;
+        }
+
+        #arrow {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+
+        #arrow span {
+            background: #000;
+            color: #fff;
+            float: left;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        #content {
+            position: absolute;
+            left: 0;
+        }
+
+        #content img {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="tab">
+        <li class="seleted">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div id="content">
+        <img src="img/1.jpg" alt="图片" title="图片"/>
+        <img src="img/2.jpg" alt="图片" title="图片"/>
+        <img src="img/3.jpg" alt="图片" title="图片"/>
+        <img src="img/4.jpg" alt="图片" title="图片"/>
+    </div>
+    <div id="arrow">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
+    </div>
+</div>
+<script src="轮播图-2/jslib.js"></script>
+<script>
+    window.onload = function () {
+        var oContainer = document.getElementById("tab");
+        var aLi = oContainer.getElementsByTagName("li");
+        var oContent = document.getElementById("content");
+        var aImg = oContent.getElementsByTagName("img");
+        var oPrev = document.getElementById("prev");
+        var oNext = document.getElementById("next");
+        var iNow = 0;
+        oContent.style.width = aImg[0].offsetWidth * aImg.length + "px";
+        for (var i = 0; i < aLi.length; i++) {
+            aLi[i].index = i;
+            aLi[i].onmouseover = function () {
+                changeImg(this.index);
+                iNow = this.index;
+            };
+        }
+        function changeImg(index) {
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].className = "";
+            }
+            aLi[index].className = "seleted";
+            animate(oContent, {left: -aImg[0].offsetWidth * index});
+        };
+        oNext.onclick = function () {
+            iNow++;
+            iNow = iNow % 4;
+            changeImg(iNow);
+
+        };
+        oPrev.onclick = function () {
+            iNow--;
+            if (iNow == -1) {
+                iNow = aLi.length - 1;
+            }
+            changeImg(iNow);
+        };
+        timer = setInterval(function () {
+            oNext.onclick();
+        }, 1000);
+        oContent.onmouseover = function () {
+            clearInterval(timer);
+        };
+        oContent.onmouseout = function () {
+            timer = setInterval(function () {
+                oNext.onclick();
+            }, 1000);
+        }
+    };
+</script>
+</body>
+</html>
