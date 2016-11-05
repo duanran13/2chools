@@ -103,7 +103,7 @@
     var oPrev = document.getElementById("prev");
     var oNext = document.getElementById("next");
     var iNow = 0;
-    var zIndex = aImg.length;
+    var zIndex = aImg.length;//图片的最大值是4
     var timer;
     var oArrow = document.getElementById("arrow");
     var aTab = document.getElementById("tab");
@@ -126,12 +126,13 @@
         var oImg = aImg[index];
         oImg.style.zIndex = ++zIndex;
         oArrow.style.zIndex = zIndex;
-        oTab.style.zIndex = zIndex+1;
+        oTab.style.zIndex = zIndex + 1;//把tab和img的zindex的值定死，让他始终比图片的zindex值大
         oImg.style.opacity = 0;
-        oImg.style.filter = "alpha(opacity = 0)";
-        animate(oImg,{opacity: 100});
+        oImg.style.filter = "alpha(opacity = 0)";//兼容性
+        animate(oImg, {opacity: 100});//对象和目标属性；
     }
     ;
+
     oNext.onclick = function () {
         iNow++;
         iNow = iNow % 4;
